@@ -5,7 +5,8 @@ from .models import Students
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.contrib.auth.hashers import check_password, make_password
-
+from rest_framework import viewsets
+from rest_framework.response import Response
 @csrf_exempt
 def Create_User(request):
     if request.method == 'POST':
@@ -27,3 +28,17 @@ def Create_User(request):
 
     return JsonResponse({'message': 'Invalid request method.'})
 # Create your views here.
+
+
+class HelloViewSet(viewsets.ViewSet):
+    """Test api view set"""
+
+    def list(self,request):
+        """Return a Hello message"""
+        a_viewset=[
+            'Uses actions (list , create,retrieve , update)',
+            'maps to urls',
+            'provides more functionality using less code',
+        ]
+
+        return Response({'message':'Hello!','a_viewset':a_viewset})
